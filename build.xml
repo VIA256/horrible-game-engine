@@ -1,0 +1,25 @@
+<project>
+  <property name="class.name" value="CubeTest" />
+  
+  <target name="clean">
+    <delete dir="build" />
+  </target>
+
+  <target name="compile">
+    <mkdir dir="build/classes" />
+    <javac srcdir="src" destdir="build/classes" classpath=".:libs/jogamp-all-platforms/jar/jogl-all.jar:libs/jogamp-all-platforms/jar/gluegen-rt.jar" />
+  </target>
+
+  <target name="package" depends="compile">
+    <jar destfile="build/jars/${class.name}.jar" basedir="build/classes" includes="*.class">
+      <manifest>
+	<attribute name="Main-Class" value="${class.name}" />
+      </manifest>
+      <zipgroupfileset dir="libs/jogamp-all-platforms/jar" includes="gluegen-rt.jar gluegen-rt-natives*.jar jogl-all.jar jogl-all-natives*.jar" />
+    </jar>
+  </target>
+
+  <target name="run" depends="package">
+    <java fork="true" jar="build/jars/${class.name}.jar" />
+  </target>
+</project>
