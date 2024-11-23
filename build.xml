@@ -1,5 +1,12 @@
 <project>
   <property name="class.name" value="CubeTest" />
+  <property file="config.properties" />
+
+  <fail message="property jogamp.home must be set manually in config.properties">
+    <condition>
+      <not><isset property="jogamp.home" /></not>
+    </condition>
+  </fail>
   
   <target name="clean">
     <delete dir="build" />
@@ -7,7 +14,7 @@
 
   <target name="compile">
     <mkdir dir="build/classes" />
-    <javac srcdir="src" destdir="build/classes" classpath=".:libs/jogamp-all-platforms/jar/jogl-all.jar:libs/jogamp-all-platforms/jar/gluegen-rt.jar" />
+    <javac srcdir="src" destdir="build/classes" classpath=".:${jogamp.home}/jar/jogl-all.jar:${jogamp.home}/jar/gluegen-rt.jar" />
   </target>
 
   <target name="package" depends="compile">
@@ -15,7 +22,7 @@
       <manifest>
 	<attribute name="Main-Class" value="${class.name}" />
       </manifest>
-      <zipgroupfileset dir="libs/jogamp-all-platforms/jar" includes="gluegen-rt.jar gluegen-rt-natives*.jar jogl-all.jar jogl-all-natives*.jar" />
+      <zipgroupfileset dir="${jogamp.home}/jar" includes="gluegen-rt.jar gluegen-rt-natives*.jar jogl-all.jar jogl-all-natives*.jar" />
     </jar>
   </target>
 
