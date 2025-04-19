@@ -1,4 +1,8 @@
 <project>
+  <description>
+    lil test jogl app
+  </description>
+  
   <property name="class.name" value="CubeTest" />
   <property file="config.properties" />
 
@@ -8,16 +12,16 @@
     </condition>
   </fail>
   
-  <target name="clean">
+  <target name="clean" description="delete build output">
     <delete dir="build" />
   </target>
 
-  <target name="compile">
+  <target name="compile" description="compile classes into build/classes/">
     <mkdir dir="build/classes" />
-    <javac srcdir="src" destdir="build/classes" classpath=".:${jogamp.home}/jar/jogl-all.jar:${jogamp.home}/jar/gluegen-rt.jar" />
+    <javac includeantruntime="false" srcdir="src" destdir="build/classes" classpath=".:${jogamp.home}/jar/jogl-all.jar:${jogamp.home}/jar/gluegen-rt.jar" />
   </target>
 
-  <target name="package" depends="compile">
+  <target name="package" depends="compile" description="package classes and libraries into a jar in build/jars/">
     <jar destfile="build/jars/${class.name}.jar" basedir="build/classes" includes="*.class">
       <manifest>
 	<attribute name="Main-Class" value="${class.name}" />
@@ -26,7 +30,7 @@
     </jar>
   </target>
 
-  <target name="run" depends="package">
+  <target name="run" depends="package" description="run the created jar file">
     <java fork="true" jar="build/jars/${class.name}.jar" />
   </target>
 </project>

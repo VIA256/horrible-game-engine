@@ -1,2 +1,5 @@
+## copy this to config.properties
+## below is the jogamp-all-platforms/ directory you should have extracted
+
 ## jogamp libraries can be downloaded from https://jogamp.org/deployment/v2.5.0/archive/jogamp-all-platforms.7z
 #jogamp.home=
